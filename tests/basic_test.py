@@ -2,7 +2,7 @@ import logging
 import os
 import sys
 from pathlib import Path
-
+import transformer
 import numpy as np
 import pandas as pd
 import torch
@@ -16,6 +16,8 @@ from tqdm import tqdm
 sys.path.append(os.path.abspath('.'))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),
                                              os.path.pardir,os.path.pardir,os.path.pardir)))
+print(torch.version.cuda)
+print(os.environ['CUDA_HOME'])
 from megatron.data import indexed_dataset
 
 logger = logging.getLogger()
@@ -31,3 +33,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    logger.info('end')

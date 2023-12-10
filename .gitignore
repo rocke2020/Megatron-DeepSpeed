@@ -18,6 +18,6 @@ config.json
 *~
 slurm*
 logs
-
+tokenizers
 # Data folder
 bookcorpus_data/

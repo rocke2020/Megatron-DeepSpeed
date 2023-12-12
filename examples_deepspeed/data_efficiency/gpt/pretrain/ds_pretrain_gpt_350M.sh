@@ -1,6 +1,6 @@
 # CL+random-LTD 150B tokens (50%):
 lr=4.0e-4
-train_tokens_in_billion=150
+train_tokens_in_billion=4
 ltd_enabled="true"
 ltd_start=128
 ltd_step=100000

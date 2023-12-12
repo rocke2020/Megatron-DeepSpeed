@@ -121,7 +121,7 @@ exit_duration=30000000
 ## used, there are more tokens per step. Thus we need to increase warmup tokens
 ## to make sure there are enough warmup steps, which is important for training
 ## stability.
-lr_warmup_tokens_in_million=3000
+lr_warmup_tokens_in_million=375
 lr_warmup_tokens=$((${lr_warmup_tokens_in_million} * 1000000))
 ## Here we changed the LR decay tokens to align with total train tokens, since
 ## related works (e.g., https://arxiv.org/abs/2203.15556) find that setting the

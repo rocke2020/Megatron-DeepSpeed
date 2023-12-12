@@ -111,6 +111,8 @@ def get_args():
                        help='Path to input JSON')
     group.add_argument('--json-keys', nargs='+', default=['text'],
                        help='space separate listed of keys to extract from json')
+    group.add_argument('--train-ratio', default=0.949, type=float,
+                       help='Ratio of training data to use.')
     group.add_argument('--keep-newlines', action='store_true',
                        help='Keep newlines between sentences when splitting.')
 
@@ -158,18 +160,18 @@ def get_args():
 
 
 def main():
+    """ wikipedia train_tokens_in_billion 4.2 GB """
     args = get_args()
     encoder = Encoder(args)
-    tokenizer = build_tokenizer(args)
     pool = multiprocessing.Pool(args.workers, initializer=encoder.initializer)
     print('start processing', flush=True)
     fin = open(args.input, 'r', encoding='utf-8')
     encoded_docs = pool.imap(encoder.encode, fin, 32)
-    total_token_num = 0
+    train_tokens_in_billion = 0
     for i, (doc, sentence_lens, token_num_processed) in enumerate(encoded_docs, start=1):
-        total_token_num += token_num_processed
-    total_token_num = total_token_num/1024/1024
-    print(f'total_token_num {total_token_num}MB', flush=True)
+        train_tokens_in_billion += token_num_processed
+    train_tokens_in_billion = train_tokens_in_billion/1024/1024/1024 * args.train_ratio
+    print(f'train_tokens_in_billion {train_tokens_in_billion}GB', flush=True)
     fin.close()
 
 if __name__ == '__main__':

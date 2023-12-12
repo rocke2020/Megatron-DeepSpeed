@@ -54,7 +54,7 @@ def initialize_megatron(extra_args_provider=None, args_defaults={},
                                            v2=args_defaults[key]),
                                            flush=True)
         setattr(args, key, args_defaults[key])
-
+    # print(args, flush=True)
 
     if args.use_checkpoint_args or args_defaults.get('use_checkpoint_args', False):
         assert args.load is not None, '--use-checkpoints-args requires --load argument'

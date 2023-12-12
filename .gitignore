@@ -21,3 +21,5 @@ logs
 tokenizers
 # Data folder
 bookcorpus_data/
+examples_deepspeed/data_efficiency/gpt/*.txt
+examples_deepspeed/data_efficiency/gpt/*.json

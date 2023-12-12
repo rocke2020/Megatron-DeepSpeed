@@ -27,14 +27,14 @@ seq_len=2048
 # init_std=0.02
 
 ## GPT-3 Medium 350M
-# model_size=0.35
-# num_layers=24
-# hidden_size=1024
-# num_attn_heads=16
-# global_batch_size=256
-# lr=3.0e-4
-# min_lr=1.0e-6
-# init_std=0.018
+model_size=0.35
+num_layers=24
+hidden_size=1024
+num_attn_heads=16
+global_batch_size=256
+lr=3.0e-4
+min_lr=1.0e-6
+init_std=0.018
 
 ## GPT-3 Large 760M
 # model_size=0.76
@@ -47,15 +47,15 @@ seq_len=2048
 # init_std=0.015
 
 ## GPT-3 XL 1.3B
-model_size=1.3
-num_layers=24
-hidden_size=2048
-num_attn_heads=16
-global_batch_size=512
+# model_size=1.3
+# num_layers=24
+# hidden_size=2048
+# num_attn_heads=16
+# global_batch_size=512
 # lr=2.0e-4
-lr=$1
-min_lr=1.0e-6
-init_std=0.013
+# lr=$1
+# min_lr=1.0e-6
+# init_std=0.013
 
 ## GPT-3 2.7B
 # model_size=2.7

@@ -172,7 +172,8 @@ class Partition(object):
             for key in doc.keys():
                 builders[key].add_doc(doc[key], sentence_lens[key])
             self.print_processing_stats(i, proc_start, total_bytes_processed)
-
+        total_bytes_processed = total_bytes_processed/1024/1024
+        print(f'total_bytes_processed {total_bytes_processed}MB')
         fin.close()
         builders[key].finalize(output_idx_files[key])
 
@@ -378,4 +379,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

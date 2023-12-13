@@ -317,12 +317,12 @@ if [ "${cl_enabled}" = "true" ]; then
 fi
 
 username=$(whoami)
-output_home="/blob/users/${username}/project/data_efficient_gpt"
+output_home="${data_home}/data_efficient_gpt"
 log_path="${output_home}/log/"
 checkpoint_path="${output_home}/checkpoint/${jobname}"
 ## Microsoft internal constraint: because tensorboard is logged by last rank,
 ## it's better to put the path in NFS instead of Blob.
-tensorboard_dir="/vc_data/users/${username}/project/data_efficient_gpt/tensorboard/"
+tensorboard_dir="${output_home}/tensorboard/"
 tensorboard_path="${tensorboard_dir}${jobname}_${host}_${current_time}"
 mkdir -p ${log_path}
 mkdir -p ${checkpoint_path}

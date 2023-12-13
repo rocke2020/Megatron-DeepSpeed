@@ -3,7 +3,7 @@
 # Set these 2 to the same as what you used during map job. We need these 2
 # configs to know how many map job result files do we have.
 num_workers=1
-num_threads=23
+num_threads=40
 # Reduce job only has 1 worker but can accelerate by multithreading.
 num_threads_reduce=40
 
@@ -14,9 +14,9 @@ num_threads_reduce=40
 # library will automatically handle reshuffling when reaching another epoch.
 num_epochs=1
 
-save_path="/mnt/nas1/dong-qichang/corpus/wiki/wikipedia/20230601/analysis_pile_gpt_${num_epochs}epoch/"
+save_path="/blob/users/conglli/data/analysis_pile_gpt_${num_epochs}epoch/"
 
-metric='vocab_rarity'
+metric='total_vocab_freq'
 # metric='vocab_rarity' # this requires the result of total_vocab_freq
 
 seq_len=2048
@@ -27,8 +27,8 @@ jobname="gpt-pile-analyzing-${metric}-${num_epochs}epoch-reduce"
 # https://mystic.the-eye.eu/public/AI/pile_neox/
 ## Change data_home to your own training data path.
 # data_home="/vc_data_blob/users/conglli/the_pile_public_merged_nopreprocessing"
-data_home="/mnt/nas1/dong-qichang/corpus/wiki/wikipedia/20230601"
-data_path="${data_home}/my-gpt2_text_document"
+data_home="/blob/data/the_pile_public_merged_nopreprocessing"
+data_path="${data_home}/pile_text_document"
 
 vocab_path="gpt2-vocab.json"
 if [ ! -f "$vocab_path" ]; then
@@ -66,7 +66,4 @@ options=" \
     --save-interval 1 \
     --save ${save_path}"
 
-export MASTER_ADDR=localhost
-export MASTER_PORT=12355
-export CUDA_DEVICE_MAX_CONNECTIONS=1
 python ../analyze_data.py ${options} &> ${jobname}.log

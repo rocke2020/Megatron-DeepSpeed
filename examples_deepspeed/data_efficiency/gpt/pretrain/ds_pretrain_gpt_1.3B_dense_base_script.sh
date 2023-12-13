@@ -145,7 +145,8 @@ no_pp="true"
 zero_stage=1
 
 ## Total number of GPUs. ds_ssh is from DeepSpeed library.
-num_gpus=$(($(ds_ssh nvidia-smi --query-gpu=name --format=csv,noheader | wc -l)-2))
+# num_gpus=$(($(ds_ssh nvidia-smi --query-gpu=name --format=csv,noheader | wc -l)-2))
+num_gpus=$(nvidia-smi --query-gpu=name --format=csv,noheader | wc -l)
 num_gpus_pernode=$(nvidia-smi --query-gpu=name --format=csv,noheader | wc -l)
 num_node=$(( ${num_gpus} / ${num_gpus_pernode} ))
 
@@ -258,7 +259,7 @@ activation_checkpoint="true"
 
 ## Whether or not log optimizer states (norms, max abs values) to tensorboard.
 ## This is not required for training and might save GPU memory when turned off.
-log_optimizer_state="true"
+log_optimizer_state="false"
 ###############################################################################
 ### Output and data configs
 current_time=$(date "+%Y.%m.%d_%H.%M.%S")
@@ -269,11 +270,11 @@ num_workers=0
 ## Public the Pile dataset, can be downloaded at
 ## https://mystic.the-eye.eu/public/AI/pile_neox/ Change data_home to where you
 ## store the pile_text_document.bin and pile_text_document.idx.
-data_home="/vc_data_blob/users/conglli/the_pile_public_merged_nopreprocessing"
+data_home="/mnt/nas1/dong-qichang/corpus/wiki/wikipedia/20230601"
 if [[ "$host" == *"webxt"* ]]; then
     data_home="/blob/data/the_pile_public_merged_nopreprocessing"
 fi
-data_path="${data_home}/pile_text_document"
+data_path="${data_home}/my-gpt2_text_document"
 ## *_idx_path force Megatron to use a specific data index file generated when
 ## we analyze data. This is needed because our index for curriculum learning
 ## difficulty metric is based on this data index.

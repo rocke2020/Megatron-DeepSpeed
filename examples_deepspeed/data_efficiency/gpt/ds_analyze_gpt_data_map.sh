@@ -1,7 +1,7 @@
 #!/bin/bash
 
 num_workers=1 # Num nodes to run the map job
-num_threads=23 # Num threads on each node. Set this based on #CPU cores
+num_threads=40 # Num threads on each node. Set this based on #CPU cores
 
 # If different data epochs have slightly different data samples (e.g., due
 # to randomness), then you need to specify large enough num_epochs that cover
@@ -15,9 +15,9 @@ num_epochs=1
 # running on many nodes and workers don't need any communication. But you
 # can modify this script to add a MPI/torch distributed launcher.
 worker_id=$1
-save_path="/mnt/nas1/dong-qichang/corpus/wiki/wikipedia/20230601/analysis_pile_gpt_${num_epochs}epoch/"
+save_path="/blob/users/conglli/data/analysis_pile_gpt_${num_epochs}epoch/"
 
-metric='vocab_rarity'
+metric='total_vocab_freq'
 # metric='vocab_rarity' # this requires the result of total_vocab_freq
 
 seq_len=2048
@@ -28,8 +28,8 @@ jobname="gpt-pile-analyzing-${metric}-${num_epochs}epoch-map-worker${worker_id}"
 # https://mystic.the-eye.eu/public/AI/pile_neox/
 ## Change data_home to your own training data path.
 # data_home="/vc_data_blob/users/conglli/the_pile_public_merged_nopreprocessing"
-data_home="/mnt/nas1/dong-qichang/corpus/wiki/wikipedia/20230601"
-data_path="${data_home}/my-gpt2_text_document"
+data_home="/blob/data/the_pile_public_merged_nopreprocessing"
+data_path="${data_home}/pile_text_document"
 
 vocab_path="gpt2-vocab.json"
 if [ ! -f "$vocab_path" ]; then
@@ -66,9 +66,5 @@ options=" \
     --return-data-index \
     --save-interval 1 \
     --save ${save_path}"
-
-export MASTER_ADDR=localhost
-export MASTER_PORT=12355
-export CUDA_DEVICE_MAX_CONNECTIONS=1
 
 python ../analyze_data.py ${options} &> ${jobname}.log
